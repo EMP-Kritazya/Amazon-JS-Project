@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amazon</title>
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/general.css" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <section class="left">
+        <img src="images/amazon-logo-white.png" alt="" class="amazon-logo" />
+      </section>
+      <section class="middle">
+        <input type="text" class="search-box" placeholder="Search" />
+        <button class="search-button">
+          <img src="images/search-icon.png" alt="" class="search-image" />
+        </button>
+      </section>
+      <section class="right">
+        <section class="ro">
+          <span class="returns">Returns</span>
+          <span class="orders">& Orders</span>
+        </section>
+        <section class="cart">
+          <img src="images/cart-icon.png" alt="" class="cart-icon" />
+          <div class="cart-items">3</div>
+          <div class="cart-text">Cart</div>
+        </section>
+      </section>
+    </header>
+    <main>
+      <section class="main js-products-grid"></section>
+    </main>
+    <script src="scripts/amazon.js"></script>
+  </body>
+</html>
