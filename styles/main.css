@@ -146,11 +146,13 @@
 
 .add-to-cart {
   width: 100%;
-  padding: 10px;
+  padding: 8px;
   border-radius: 50px;
-  border: none;
+  border: 1px solid rgb(252, 210, 0);
   background-color: rgb(255, 216, 20);
   box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+  cursor: pointer;
+  color: rgb(33, 33, 33);
 }
 
 .add-to-cart:hover {
