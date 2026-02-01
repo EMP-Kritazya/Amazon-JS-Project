@@ -1,4 +1,5 @@
 import { cart } from "../data/cart.js";
+import { products } from "../data/product.js";
 
 let productsHTML = "";
 
