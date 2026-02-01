@@ -71,7 +71,8 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
     cart.forEach((item) => {
       totalCartItems += item.quantity;
     });
-
     document.querySelector(".js-number-of-items").innerHTML = totalCartItems;
+
+    button(".added-to-cart").classList.add("show-added-message");
   });
 });

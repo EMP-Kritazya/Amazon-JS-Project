@@ -140,6 +140,10 @@
   margin-right: 5px;
 }
 
+.show-added-message {
+  opacity: 1;
+}
+
 .add-to-cart {
   width: 100%;
   padding: 10px;
