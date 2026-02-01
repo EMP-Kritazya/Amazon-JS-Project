@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/product.js";
 
 let productsHTML = "";
@@ -46,45 +46,31 @@ products.forEach((product) => {
 
 document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
+function updateCartQuantity() {
+  let totalCartItems = 0;
+  cart.forEach((item) => {
+    totalCartItems += item.quantity;
+  });
+  document.querySelector(".js-number-of-items").innerHTML = totalCartItems;
+}
+
+function generateAddedText(productId) {
+  const message = document.querySelector(`.js-added-to-cart-${productId}`);
+  message.classList.add("show-added-message");
+
+  clearTimeout(timeoutId);
+
+  let timeoutId = setTimeout(() => {
+    addMessage.classList.remove("show-added-message");
+  }, 3000);
+}
+
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
     const productId = button.dataset.productId;
-    let quantitySelected = Number(
-      document.querySelector(`.js-quantity-selector-${productId}`).value,
-    );
-    let matchingItem;
 
-    cart.forEach((item) => {
-      if (item.productId === productId) {
-        matchingItem = item;
-      }
-    });
-
-    if (matchingItem) {
-      matchingItem.quantity += quantitySelected;
-    } else {
-      cart.push({
-        productId: productId,
-        quantity: quantitySelected,
-      });
-    }
-
-    let totalCartItems = 0;
-    cart.forEach((item) => {
-      totalCartItems += item.quantity;
-    });
-    document.querySelector(".js-number-of-items").innerHTML = totalCartItems;
-
-    const addMessage = document.querySelector(`.js-added-to-cart-${productId}`);
-
-    if (addMessage) {
-      addMessage.classList.add("show-added-message");
-    }
-
-    clearTimeout(timeoutId);
-
-    let timeoutId = setTimeout(() => {
-      addMessage.classList.remove("show-added-message");
-    }, 3000);
+    addToCart(productId);
+    updateCartQuantity(productId);
+    generateAddedText(productId);
   });
 });
