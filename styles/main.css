@@ -1,6 +1,7 @@
 .main {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
+  margin-top: 60px;
 }
 
 .product-area {

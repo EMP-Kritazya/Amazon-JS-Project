@@ -37,7 +37,7 @@ products.forEach((product) => {
         <img src="images/checkmark.png" alt="" />
         <div class="added-text">Added</div>
       </div>
-      <button class="add-to-cart js-add-to-cart">Add to Cart</button>
+      <button class="add-to-cart js-add-to-cart" data-product-id = "${product.id}">Add to Cart</button>
     </div>
   `;
 });
@@ -46,7 +46,23 @@ document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
-    numberOfItems = numberOfItems + 1;
+    const productId = button.dataset.productId;
+    let matchingItem;
+
+    cart.forEach((item) => {
+      if (item.productId === productId) {
+        matchingItem = item;
+      }
+    });
+
+    if (matchingItem) {
+      matchingItem.quantity += 1;
+    } else {
+      cart.push({
+        productId: productId,
+        quantity: 1,
+      });
+    }
+    console.log(cart);
   });
-  document.querySelector(".js-number-of-items").innerHTML = numberOfItems;
 });
