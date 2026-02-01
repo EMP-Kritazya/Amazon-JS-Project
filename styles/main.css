@@ -1,6 +1,6 @@
 .main {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(8, 1fr);
 }
 
 .product-area {
@@ -11,7 +11,49 @@
   border-right: 1px solid rgb(231, 231, 231);
   border-bottom: 1px solid rgb(231, 231, 231);
 
-  padding: 40px 25px 25px 25px;
+  padding: 40px 25px 20px 25px;
+}
+
+@media (max-width: 2000px) {
+  .main {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+@media (max-width: 1600px) {
+  .main {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (max-width: 1300px) {
+  .main {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 1000px) {
+  .main {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .main {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 450px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
 }
 
 .product-details {
@@ -29,7 +71,7 @@
 
 .product-description {
   height: 40px;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 .limit-to-two-lines {
@@ -43,7 +85,7 @@
 .product-rating {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
   margin-right: 6px;
 }
 
@@ -55,7 +97,6 @@
 .number-bought {
   color: rgb(1, 124, 182);
   cursor: pointer;
-  margin-top: 3px;
 }
 
 .product-price {
@@ -100,8 +141,36 @@
 
 .add-to-cart {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   border-radius: 50px;
   border: none;
   background-color: rgb(255, 216, 20);
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+}
+
+.add-to-cart:hover {
+  background-color: rgb(247, 202, 0);
+  border: 1px solid rgb(242, 194, 0);
+}
+
+.add-to-cart:active {
+  background: rgb(255, 216, 20);
+  border-color: rgb(252, 210, 0);
+  box-shadow: none;
+}
+
+select {
+  color: rgb(33, 33, 33);
+  background-color: rgb(240, 240, 240);
+  border: 1px solid rgb(213, 217, 217);
+  border-radius: 8px;
+  padding: 3px 5px;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+}
+
+select:focus,
+input:focus {
+  outline: 2px solid rgb(255, 153, 0);
 }

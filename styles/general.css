@@ -1,9 +1,11 @@
 * {
   font-family: Roboto, Arial;
-  margin: 0px;
-  padding: 0px;
   color: black;
   box-sizing: border-box;
+}
+
+body {
+  margin: 0;
 }
 
 img {
