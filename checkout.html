@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secured Checkout</title>
+
+    <link rel="stylesheet" href="styles/shared/general.css" />
+    <link rel="stylesheet" href="styles/pages/checkout/checkout-header.css" />
+    <link rel="stylesheet" href="styles/pages/checkout/checkout.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="checkout-header">
+      <div class="checkoutLeft">
+        <a href="amazon.html">
+          <img
+            src="images/amazon-logo-black.png"
+            alt=""
+            class="amazon-logo checkout-logo"
+          />
+          <img
+            src="images/amazon-mobile-logo-black.png"
+            alt=""
+            class="amazon-mobile-logo checkout-mobile-logo"
+          />
+        </a>
+      </div>
+      <div class="checkoutMiddle">
+        Checkout (<a href="amazon.html" class="return-to-home-link">0 items</a>)
+      </div>
+      <div class="checkoutRight">
+        <img
+          src="images/checkout-lock-icon.png"
+          alt=""
+          class="checkout-lock-icon"
+        />
+      </div>
+    </header>
+
+    <main>
+      <div class="page-title">Review your order</div>
+      <section class="cart-product-grid">
+        <div class="order-summary">
+          <div class="cart-item-container">
+            <div class="delivery-date">
+              Delievery date: Wednesday, February 11
+            </div>
+            <div class="cart-items-details-flex">
+              <div class="cart-items-left">
+                <img
+                  src="images/products/intermediate-composite-basketball.jpg"
+                  alt=""
+                  class="cart-item-image"
+                />
+              </div>
+              <div class="cart-items-middle">
+                <div class="cart-product-info">
+                  <div class="cart-product-title">
+                    Intermediate Size Basketball
+                  </div>
+                  <div class="cart-product-price">$20.95</div>
+                  <div class="cart-product-details">
+                    <div class="quantity">Quantity: 4</div>
+                    <a href="amazon.html" class="update">Update</a>
+                    <a class="delete">Delete</a>
+                  </div>
+                </div>
+              </div>
+              <div class="cart-items-right">
+                <div class="delivery-method-text">Choose a delivery option</div>
+                <div class="delivery-option-buttons">
+                  <input
+                    type="radio"
+                    checked
+                    name="delivery-option-1"
+                    class="delivery-option-input"
+                  />
+                  <div>
+                    <div class="delivery-option-date">
+                      Wednesday, February 11
+                    </div>
+                    <div class="delivery-option-price">FREE Shipping</div>
+                  </div>
+                </div>
+                <div class="delivery-option-buttons">
+                  <input
+                    type="radio"
+                    checked
+                    name="delivery-option-2"
+                    class="delivery-option-input"
+                  />
+                  <div>
+                    <div class="delivery-option-date">Thursday, February 5</div>
+                    <div class="delivery-option-price">$4.99 - Shipping</div>
+                  </div>
+                </div>
+                <div class="delivery-option-buttons">
+                  <input
+                    type="radio"
+                    checked
+                    name="delivery-option-3"
+                    class="delivery-option-input"
+                  />
+                  <div>
+                    <div class="delivery-option-date">Tuesday, February 3</div>
+                    <div class="delivery-option-price">$9.99 - Shipping</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="payment-summary"></div>
+      </section>
+    </main>
+  </body>
+</html>

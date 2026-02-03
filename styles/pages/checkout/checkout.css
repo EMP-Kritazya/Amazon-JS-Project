@@ -1,0 +1,109 @@
+main {
+  margin: 60px auto;
+  max-width: 1100px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.cart-product-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+}
+
+.cart-item-container,
+.payment-summary {
+  border: 1px solid rgb(222, 222, 222);
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.cart-item-container {
+  margin-bottom: 12px;
+}
+
+.delivery-date {
+  color: rgb(0, 118, 0);
+  font-weight: 700;
+  font-size: 19px;
+  margin-top: 5px;
+  margin-bottom: 22px;
+}
+
+.cart-items-details-flex {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.cart-items-left {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.cart-item-image {
+  width: 100px;
+}
+
+.cart-product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-product-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.cart-product-price {
+  font-weight: 700;
+  color: rgb(177, 39, 4);
+  margin-bottom: 5px;
+}
+
+.cart-product-details {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.update,
+.delete {
+  text-decoration: none;
+  color: #017cb6;
+  cursor: pointer;
+}
+
+.update:hover,
+.delete:hover {
+  color: red;
+}
+
+.cart-items-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.delivery-method-text {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.delivery-option-buttons {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 12px;
+}
+.delivery-option-input {
+  /* 4. This removes extra browser margins that cause the "misalignment" */
+  margin: 0;
+  /* 5. Optional: Shift the button down 2-3px if it looks slightly higher than the text */
+  margin-top: 3px;
+}
