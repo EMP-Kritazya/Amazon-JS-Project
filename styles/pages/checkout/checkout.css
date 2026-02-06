@@ -1,3 +1,7 @@
+body {
+  /* padding: 0px 30px; */
+}
+
 main {
   margin: 80px auto;
   max-width: 1100px;
@@ -119,4 +123,74 @@ main {
 .delivery-option-price {
   color: rgb(120, 120, 120);
   font-size: 15px;
+}
+
+.payment-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.payment-title {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.payment-details {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.elaborate-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.items,
+.shipping,
+.before-tax,
+.actual-tax,
+.final-price {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  margin-bottom: 9px;
+}
+
+.total-before-tax {
+  padding-top: 9px;
+}
+
+.total-before-tax-price {
+  border-top: 1px solid rgb(222, 222, 222);
+  padding-top: 9px;
+}
+
+.final-price {
+  border-top: 1px solid rgb(222, 222, 222);
+  padding-top: 18px;
+}
+
+.final-price .order-total-title,
+.final-price .total-price {
+  color: rgb(177, 39, 4);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.place-order {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgb(252, 210, 0);
+  color: rgb(33, 33, 33);
+  background-color: rgb(255, 216, 20);
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+}
+
+.payment-summary {
+  padding-bottom: 24px;
+  margin-bottom: 19px;
 }
