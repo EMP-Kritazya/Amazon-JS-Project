@@ -2,6 +2,7 @@ import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/product.js";
 
 let productsHTML = "";
+let timeoutId = null;
 
 products.forEach((product) => {
   productsHTML += `
@@ -60,9 +61,9 @@ function generateAddedText(productId) {
 
   clearTimeout(timeoutId);
 
-  let timeoutId = setTimeout(() => {
-    addMessage.classList.remove("show-added-message");
-  }, 3000);
+  timeoutId = setTimeout(() => {
+    message.classList.remove("show-added-message");
+  }, 2000);
 }
 
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
@@ -72,5 +73,6 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
     addToCart(productId);
     updateCartQuantity(productId);
     generateAddedText(productId);
+    console.log(productId);
   });
 });

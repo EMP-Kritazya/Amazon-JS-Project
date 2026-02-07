@@ -43,111 +43,44 @@
         />
       </div>
     </header>
-
     <main>
       <div class="page-title">Review your order</div>
       <section class="cart-product-grid">
-        <div class="items-summary">
-          <div class="cart-item-container">
-            <div class="delivery-date">
-              Delivery date: Wednesday, February 11
-            </div>
-            <div class="cart-items-details-grid">
-              <div class="cart-items-left">
-                <img
-                  src="images/products/intermediate-composite-basketball.jpg"
-                  alt=""
-                  class="cart-item-image"
-                />
+        <div class="grid-left"></div>
+        <div class="grid-right">
+          <div class="payment-summary">
+            <div class="payment-title">Order Summary</div>
+            <div class="payment-details">
+              <div class="elaborate-details">
+                <div class="items">
+                  <div class="items-title">Items (4):</div>
+                  <div class="item-price">$83.80</div>
+                </div>
+                <div class="shipping">
+                  <div class="shipping-title">Shipping & handling:</div>
+                  <div class="shipping-price">$0.00</div>
+                </div>
+                <div class="tax-details">
+                  <div class="before-tax">
+                    <div class="total-before-tax">Total before tax:</div>
+                    <div class="total-before-tax-price">$83.80</div>
+                  </div>
+                  <div class="actual-tax">
+                    <div class="estimated-title">Estimated tax (10%):</div>
+                    <div class="estimated-amount">$8.38</div>
+                  </div>
+                </div>
               </div>
-              <div class="cart-items-middle">
-                <div class="cart-product-info">
-                  <div class="cart-product-title">
-                    Intermediate Size Basketball
-                  </div>
-                  <div class="cart-product-price">$20.95</div>
-                  <div class="cart-product-details">
-                    <div class="quantity">Quantity: 4</div>
-                    <a href="amazon.html" class="update">Update</a>
-                    <a class="delete">Delete</a>
-                  </div>
-                </div>
-              </div>
-              <div class="cart-items-right">
-                <div class="delivery-method-text">
-                  Choose a delivery option:
-                </div>
-                <div class="delivery-option-buttons">
-                  <input
-                    type="radio"
-                    checked
-                    name="delivery-option-1"
-                    class="delivery-option-input"
-                  />
-                  <div>
-                    <div class="delivery-option-date">
-                      Wednesday, February 11
-                    </div>
-                    <div class="delivery-option-price">FREE Shipping</div>
-                  </div>
-                </div>
-                <div class="delivery-option-buttons">
-                  <input
-                    type="radio"
-                    name="delivery-option-1"
-                    class="delivery-option-input"
-                  />
-                  <div>
-                    <div class="delivery-option-date">Thursday, February 5</div>
-                    <div class="delivery-option-price">$4.99 - Shipping</div>
-                  </div>
-                </div>
-                <div class="delivery-option-buttons">
-                  <input
-                    type="radio"
-                    name="delivery-option-1"
-                    class="delivery-option-input"
-                  />
-                  <div>
-                    <div class="delivery-option-date">Tuesday, February 3</div>
-                    <div class="delivery-option-price">$9.99 - Shipping</div>
-                  </div>
-                </div>
+              <div class="final-price">
+                <div class="order-total-title">Order total:</div>
+                <div class="total-price">$92.18</div>
               </div>
             </div>
+            <button class="place-order">Place your order</button>
           </div>
-        </div>
-        <div class="payment-summary">
-          <div class="payment-title">Order Summary</div>
-          <div class="payment-details">
-            <div class="elaborate-details">
-              <div class="items">
-                <div class="items-title">Items (4):</div>
-                <div class="item-price">$83.80</div>
-              </div>
-              <div class="shipping">
-                <div class="shipping-title">Shipping & handling:</div>
-                <div class="shipping-price">$0.00</div>
-              </div>
-              <div class="tax-details">
-                <div class="before-tax">
-                  <div class="total-before-tax">Total before tax:</div>
-                  <div class="total-before-tax-price">$83.80</div>
-                </div>
-                <div class="actual-tax">
-                  <div class="estimated-title">Estimated tax (10%):</div>
-                  <div class="estimated-amount">$8.38</div>
-                </div>
-              </div>
-            </div>
-            <div class="final-price">
-              <div class="order-total-title">Order total:</div>
-              <div class="total-price">$92.18</div>
-            </div>
-          </div>
-          <button class="place-order">Place your order</button>
         </div>
       </section>
     </main>
+    <script type="module" src="./scripts/checkout.js"></script>
   </body>
 </html>

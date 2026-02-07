@@ -1,4 +1,4 @@
-export const cart = [];
+export let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 // Adds the product to the cart
 // If the product already exists then it will just update it's quantity
@@ -23,4 +23,5 @@ export function addToCart(productId) {
       quantity: quantitySelected,
     });
   }
+  localStorage.setItem("cart", JSON.stringify(cart));
 }

@@ -19,6 +19,11 @@ main {
   gap: 12px;
 }
 
+.grid-left,
+.grid-right {
+  width: 100%;
+}
+
 .cart-item-container,
 .payment-summary {
   border: 1px solid rgb(222, 222, 222);
