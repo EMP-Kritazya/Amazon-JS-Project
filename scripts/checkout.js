@@ -6,6 +6,10 @@ import { products } from "../data/product.js";
 let cartItemsHtml = "";
 let itemId;
 let product;
+let totalItemsCost = 0;
+let shippingHandling = 0;
+let totalBeforeTax = 0;
+let itemCount = 0;
 
 cart.forEach((items) => {
   itemId = items.productId;
@@ -15,8 +19,6 @@ cart.forEach((items) => {
     console.error("Product not found:", items.productId);
     return;
   }
-
-  console.log(product);
 
   cartItemsHtml += `
     <div class="items-summary">
@@ -89,7 +91,46 @@ cart.forEach((items) => {
         </div>
       </div>
     </div>
-
   `;
+  totalItemsCost += product.priceCents * items.quantity;
+  itemCount += 1;
 });
 document.querySelector(".grid-left").innerHTML = cartItemsHtml;
+
+totalItemsCost /= 100;
+totalBeforeTax = (totalItemsCost * 100 + shippingHandling) / 100;
+
+let orderHtml = `
+  <div class="payment-summary">
+    <div class="payment-title">Order Summary</div>
+    <div class="payment-details">
+      <div class="elaborate-details">
+        <div class="items">
+          <div class="items-title">Items (${itemCount}):</div>
+          <div class="item-price">$${totalItemsCost.toFixed(2)}</div>
+        </div>
+        <div class="shipping">
+          <div class="shipping-title">Shipping & handling:</div>
+          <div class="shipping-price">$${shippingHandling.toFixed(2)}</div>
+        </div>
+        <div class="tax-details">
+          <div class="before-tax">
+            <div class="total-before-tax">Total before tax:</div>
+            <div class="total-before-tax-price">$${totalBeforeTax.toFixed(2)}</div>
+          </div>
+          <div class="actual-tax">
+            <div class="estimated-title">Estimated tax (10%):</div>
+            <div class="estimated-amount">$${(totalBeforeTax * 0.1).toFixed(2)}</div>
+          </div>
+        </div>
+      </div>
+      <div class="final-price">
+        <div class="order-total-title">Order total:</div>
+        <div class="total-price">$${(totalBeforeTax + totalBeforeTax * 0.1).toFixed(2)}</div>
+      </div>
+    </div>
+    <button class="place-order">Place your order</button>
+  </div>
+`;
+
+document.querySelector(".grid-right").innerHTML = orderHtml;
