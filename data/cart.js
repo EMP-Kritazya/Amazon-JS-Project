@@ -34,4 +34,5 @@ export function removeFromCart(productId) {
     }
   });
   cart = updatedCart;
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
