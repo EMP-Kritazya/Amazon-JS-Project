@@ -23,7 +23,7 @@ export function addToCart(productId) {
       quantity: quantitySelected,
     });
   }
-  localStorage.setItem("cart", JSON.stringify(cart));
+  saveToStorage();
 }
 
 export function removeFromCart(productId) {
@@ -34,5 +34,9 @@ export function removeFromCart(productId) {
     }
   });
   cart = updatedCart;
+  saveToStorage();
+}
+
+function saveToStorage() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
