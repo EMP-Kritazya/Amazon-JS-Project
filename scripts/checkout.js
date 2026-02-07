@@ -1,21 +1,21 @@
-import { cart } from "../data/cart.js";
+import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/product.js";
 
 // First task is to take data from cart list and then form html divs
 
 let cartItemsHtml = "";
-let itemId;
-let product;
+let cartItemId;
+let matchingProduct;
 let totalItemsCost = 0;
 let shippingHandling = 0;
 let totalBeforeTax = 0;
 let itemCount = 0;
 
-cart.forEach((items) => {
-  itemId = items.productId;
-  product = products.find((item) => item.id === itemId);
+cart.forEach((cartItem) => {
+  cartItemId = cartItem.productId;
+  matchingProduct = products.find((item) => item.id === cartItemId);
 
-  if (!product) {
+  if (!matchingProduct) {
     console.error("Product not found:", items.productId);
     return;
   }
@@ -29,7 +29,7 @@ cart.forEach((items) => {
         <div class="cart-items-details-grid">
           <div class="cart-items-left">
             <img
-              src="${product.image}"
+              src="${matchingProduct.image}"
               alt=""
               class="cart-item-image"
             />
@@ -37,13 +37,13 @@ cart.forEach((items) => {
           <div class="cart-items-middle">
             <div class="cart-product-info">
               <div class="cart-product-title">
-                ${product.name}
+                ${matchingProduct.name}
               </div>
-              <div class="cart-product-price">$20.95</div>
+              <div class="cart-product-price">$${(matchingProduct.priceCents / 100).toFixed(2)}</div>
               <div class="cart-product-details">
-                <div class="quantity">Quantity: ${items.quantity}</div>
-                <a href="amazon.html" class="update">Update</a>
-                <a class="delete">Delete</a>
+                <div class="quantity">Quantity: ${cartItem.quantity}</div>
+                <a href="amazon.html" class="update js-update-link" data-product-id="${matchingProduct.id}">Update</a>
+                <a class="delete js-delete-link" data-product-id="${matchingProduct.id}">Delete</a>
               </div>
             </div>
           </div>
@@ -55,7 +55,7 @@ cart.forEach((items) => {
               <input
                 type="radio"
                 checked
-                name="delivery-option-1-${product.id}"
+                name="delivery-option-1-${matchingProduct.id}"
                 class="delivery-option-input"
               />
               <div>
@@ -68,7 +68,7 @@ cart.forEach((items) => {
             <div class="delivery-option-buttons">
               <input
                 type="radio"
-                name="delivery-option-1-${product.id}"
+                name="delivery-option-1-${matchingProduct.id}"
                 class="delivery-option-input"
               />
               <div>
@@ -79,7 +79,7 @@ cart.forEach((items) => {
             <div class="delivery-option-buttons">
               <input
                 type="radio"
-                name="delivery-option-1-${product.id}"
+                name="delivery-option-1-${matchingProduct.id}"
                 class="delivery-option-input"
               />
               <div>
@@ -92,10 +92,10 @@ cart.forEach((items) => {
       </div>
     </div>
   `;
-  totalItemsCost += product.priceCents * items.quantity;
+  totalItemsCost += matchingProduct.priceCents * cartItem.quantity;
   itemCount += 1;
 });
-document.querySelector(".grid-left").innerHTML = cartItemsHtml;
+document.querySelector(".js-left").innerHTML = cartItemsHtml;
 
 totalItemsCost /= 100;
 totalBeforeTax = (totalItemsCost * 100 + shippingHandling) / 100;
@@ -133,4 +133,12 @@ let orderHtml = `
   </div>
 `;
 
-document.querySelector(".grid-right").innerHTML = orderHtml;
+document.querySelector(".js-right").innerHTML = orderHtml;
+
+document.querySelectorAll(".js-delete-link").forEach((link) => {
+  link.addEventListener("click", () => {
+    const productId = link.dataset.productId;
+    removeFromCart(productId);
+    // we need to update out HTML now
+  });
+});
