@@ -14,7 +14,6 @@ export function addToCart(productId) {
       matchingItem = item;
     }
   });
-
   if (matchingItem) {
     matchingItem.quantity += quantitySelected;
   } else {
