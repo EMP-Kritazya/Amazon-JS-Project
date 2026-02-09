@@ -7,10 +7,7 @@ import {
 } from "../data/cart.js";
 import { products } from "../data/product.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
-
-const today = dayjs();
-const delieveryDate = today.add(7, "days");
-console.log(delieveryDate.format("dddd, MMMM D"));
+import { deliveryOptions } from "../data/deliveryOptions.js";
 
 // First task is to take data from cart list and then form html divs
 
@@ -32,11 +29,24 @@ cart.forEach((cartItem) => {
     return;
   }
 
+  const deliveryOptionId = cartItem.deliveryOptionId;
+
+  let deliveryOption;
+  deliveryOptions.forEach((option) => {
+    if (option.id === deliveryOptionId) {
+      deliveryOption = option;
+    }
+  });
+
+  const today = dayjs();
+  const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
+  const dateString = deliveryDate.format("dddd, MMMM D");
+
   cartItemsHtml += `
     <div class="items-summary js-cart-item-container-${matchingProduct.id}">
       <div class="cart-item-container">
         <div class="delivery-date">
-          Delivery date: Wednesday, February 11
+          Delivery date: ${dateString}
         </div>
         <div class="cart-items-details-grid">
           <div class="cart-items-left">
@@ -65,42 +75,7 @@ cart.forEach((cartItem) => {
             <div class="delivery-method-text">
               Choose a delivery option:
             </div>
-            <div class="delivery-option-buttons">
-              <input
-                type="radio"
-                checked
-                name="delivery-option-1-${matchingProduct.id}"
-                class="delivery-option-input"
-              />
-              <div>
-                <div class="delivery-option-date">
-                  Wednesday, February 11
-                </div>
-                <div class="delivery-option-price">FREE Shipping</div>
-              </div>
-            </div>
-            <div class="delivery-option-buttons">
-              <input
-                type="radio"
-                name="delivery-option-1-${matchingProduct.id}"
-                class="delivery-option-input"
-              />
-              <div>
-                <div class="delivery-option-date">Thursday, February 5</div>
-                <div class="delivery-option-price">$4.99 - Shipping</div>
-              </div>
-            </div>
-            <div class="delivery-option-buttons">
-              <input
-                type="radio"
-                name="delivery-option-1-${matchingProduct.id}"
-                class="delivery-option-input"
-              />
-              <div>
-                <div class="delivery-option-date">Tuesday, February 3</div>
-                <div class="delivery-option-price">$9.99 - Shipping</div>
-              </div>
-            </div>
+            ${deliveryOptionsHTML(matchingProduct, cartItem)}
           </div>
         </div>
       </div>
@@ -115,6 +90,36 @@ updateHeaderCartQuantity();
 updateTotal();
 // Updates Order Summary tile
 updateOrderSummary();
+
+function deliveryOptionsHTML(matchingProduct, cartItem) {
+  let html = "";
+  deliveryOptions.forEach((deliveryOption) => {
+    const today = dayjs();
+    const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
+    const dateString = deliveryDate.format("dddd, MMMM D");
+    const priceString =
+      deliveryOption.priceCents === 0
+        ? "FREE"
+        : `$${deliveryOption.priceCents / 100} -`;
+    const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
+
+    html += `
+      <div class="delivery-option-buttons">
+        <input
+          ${isChecked ? "checked" : ""}
+          type="radio"
+          name="delivery-option-1-${matchingProduct.id}"
+          class="delivery-option-input"
+        />
+        <div>
+          <div class="delivery-option-date">${dateString}</div>
+          <div class="delivery-option-price">${priceString} Shipping</div>
+        </div>
+      </div>
+    `;
+  });
+  return html;
+}
 
 // Listens for click on delete link for all items and functions accordingly
 document.querySelectorAll(".js-delete-link").forEach((link) => {
