@@ -1,8 +1,20 @@
-import { cart, removeFromCart } from "../data/cart.js";
+import {
+  calculateCartQuantity,
+  cart,
+  removeFromCart,
+  totalCartItems,
+  updateCart,
+} from "../data/cart.js";
 import { products } from "../data/product.js";
+import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
+
+const today = dayjs();
+const delieveryDate = today.add(7, "days");
+console.log(delieveryDate.format("dddd, MMMM D"));
 
 // First task is to take data from cart list and then form html divs
 
+// Variables
 let cartItemsHtml = "";
 let orderHtml = "";
 let cartItemId;
@@ -10,7 +22,6 @@ let matchingProduct;
 let totalItemsCost = 0;
 let shippingHandling = 0;
 let totalBeforeTax = 0;
-let itemCount = 0;
 
 cart.forEach((cartItem) => {
   cartItemId = cartItem.productId;
@@ -41,9 +52,11 @@ cart.forEach((cartItem) => {
                 ${matchingProduct.name}
               </div>
               <div class="cart-product-price">$${(matchingProduct.priceCents / 100).toFixed(2)}</div>
-              <div class="cart-product-details">
-                <div class="quantity">Quantity: ${cartItem.quantity}</div>
-                <a href="amazon.html" class="update js-update-link" data-product-id="${matchingProduct.id}">Update</a>
+              <div class="cart-product-details js-cart-details-${matchingProduct.id}">
+                <div class="quantity js-update-quantity-${matchingProduct.id}">Quantity: <span class="quantity-number js-quantity-${matchingProduct.id}">${cartItem.quantity}</span></div>
+                <a class="update js-update-link" data-product-id="${matchingProduct.id}">Update</a>
+                <input class="quantity-input js-input-quantity-${matchingProduct.id}"/>
+                <span class="save-quantity-link js-save-link" data-product-id = "${matchingProduct.id}">Save</span>
                 <a class="delete js-delete-link" data-product-id="${matchingProduct.id}">Delete</a>
               </div>
             </div>
@@ -94,23 +107,64 @@ cart.forEach((cartItem) => {
     </div>
   `;
 });
-updateVariables();
-updateCartQuantity();
-document.querySelector(".js-left").innerHTML = cartItemsHtml;
 
+document.querySelector(".js-left").innerHTML = cartItemsHtml;
+// Updates the cart quantity in the Header of the page
+updateHeaderCartQuantity();
+// Updates total cost of all items in the cart
+updateTotal();
+// Updates Order Summary tile
+updateOrderSummary();
+
+// Listens for click on delete link for all items and functions accordingly
 document.querySelectorAll(".js-delete-link").forEach((link) => {
   link.addEventListener("click", () => {
     const productId = link.dataset.productId;
     removeFromCart(productId);
     document.querySelector(`.js-cart-item-container-${productId}`).remove();
 
-    updateVariables();
-    updateCartQuantity();
-    updateOrderSummary();
+    calculateCartQuantity();
+    updateCartQuantity(productId);
+    updateTotal();
+    updateHeaderCartQuantity();
   });
 });
 
-updateOrderSummary();
+// Listens for click on update link for all items and functions accordingly
+document.querySelectorAll(".js-update-link").forEach((link) => {
+  link.addEventListener("click", () => {
+    const productId = link.dataset.productId;
+
+    // I need to display the selector and Save link
+    document
+      .querySelector(`.js-cart-details-${productId}`)
+      .classList.add("is-editing-quantity", "is-not-editable");
+  });
+});
+
+// Listens for click on save link for all items and functions accordingly
+document.querySelectorAll(".js-save-link").forEach((link) => {
+  link.addEventListener("click", () => {
+    const productId = link.dataset.productId;
+
+    // I need to get value from the input box and update cart quantity for that Item
+    const newQuantity = parseInt(
+      document.querySelector(`.js-input-quantity-${productId}`).value,
+    );
+
+    // Revert back to showing update and delete links and also updates the item quantity
+    document
+      .querySelector(`.js-cart-details-${productId}`)
+      .classList.remove("is-editing-quantity", "is-not-editable");
+
+    updateCart(productId, newQuantity);
+
+    updateTotal();
+
+    updateCartQuantity(productId);
+  });
+});
+
 function updateOrderSummary() {
   totalBeforeTax = totalItemsCost + shippingHandling;
   orderHtml = `
@@ -119,7 +173,7 @@ function updateOrderSummary() {
     <div class="payment-details">
       <div class="elaborate-details">
         <div class="items">
-          <div class="items-title">Items (${itemCount}):</div>
+          <div class="items-title">Items (${totalCartItems}):</div>
           <div class="item-price">$${(totalItemsCost / 100).toFixed(2)}</div>
         </div>
         <div class="shipping">
@@ -148,21 +202,31 @@ function updateOrderSummary() {
   document.querySelector(".js-right").innerHTML = orderHtml;
 }
 
-function updateCartQuantity() {
-  // Display total cart size in the header
+// Display total cart size in the header
+function updateHeaderCartQuantity() {
+  calculateCartQuantity();
   document.querySelector(".return-to-home-link").innerHTML =
-    `${itemCount} items`;
+    `${totalCartItems} items`;
 }
 
-function updateVariables() {
+// Updates totalCost for all items
+function updateTotal() {
   // reset variables
-  itemCount = 0;
   totalItemsCost = 0;
 
   // update variables
   cart.forEach((cartItem) => {
     let matchingItem = products.find((item) => item.id === cartItem.productId);
     totalItemsCost += cartItem.quantity * matchingItem.priceCents;
-    itemCount += 1;
   });
+  updateOrderSummary();
+}
+
+// Update cart item quantity after update number of items
+function updateCartQuantity(productId) {
+  const product = cart.find((item) => item.productId === productId);
+  const quantity = product.quantity;
+
+  document.querySelector(`.js-quantity-${productId}`).innerHTML = quantity;
+  updateHeaderCartQuantity();
 }

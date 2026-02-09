@@ -1,5 +1,5 @@
 body {
-  /* padding: 0px 30px; */
+  padding: 0px 30px;
 }
 
 main {
@@ -60,6 +60,10 @@ main {
   max-width: 120px;
 }
 
+.cart-items-middle {
+  flex: 1;
+}
+
 .cart-product-info {
   display: flex;
   flex-direction: column;
@@ -80,18 +84,40 @@ main {
   display: flex;
   align-items: flex-start;
   gap: 7px;
+  flex-wrap: wrap;
 }
 
 .update,
-.delete {
+.delete,
+.save-quantity-link {
   text-decoration: none;
   color: #017cb6;
   cursor: pointer;
 }
 
 .update:hover,
-.delete:hover {
+.delete:hover,
+.save-quantity-link:hover {
   color: red;
+}
+
+.quantity-input {
+  width: 30px;
+}
+
+.quantity-input,
+.save-quantity-link {
+  display: none;
+}
+
+.is-editing-quantity .quantity-input,
+.is-editing-quantity .save-quantity-link {
+  display: initial;
+}
+
+.is-not-editable .update,
+.is-not-editable .quantity-number {
+  display: none;
 }
 
 .cart-items-right {

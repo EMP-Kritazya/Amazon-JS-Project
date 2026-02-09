@@ -1,3 +1,5 @@
+export let totalCartItems = 0;
+
 export let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 // Adds the product to the cart
@@ -33,6 +35,19 @@ export function removeFromCart(productId) {
     }
   });
   cart = updatedCart;
+  saveToStorage();
+}
+
+export function calculateCartQuantity() {
+  totalCartItems = 0;
+  cart.forEach((item) => {
+    totalCartItems += item.quantity;
+  });
+}
+
+export function updateCart(productId, quantity) {
+  const cartItem = cart.find((item) => item.productId === productId);
+  cartItem.quantity = quantity;
   saveToStorage();
 }
 
