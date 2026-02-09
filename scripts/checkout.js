@@ -39,14 +39,12 @@ cart.forEach((cartItem) => {
     }
   });
 
-  const today = dayjs();
-  const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
-  const dateString = deliveryDate.format("dddd, MMMM D");
+  dateString = getDeliveryDate(cartItem);
 
   cartItemsHtml += `
     <div class="items-summary js-cart-item-container-${matchingProduct.id}">
       <div class="cart-item-container">
-        <div class="delivery-date">
+        <div class="delivery-date js-change-delivery-date-${matchingProduct.id}">
           Delivery date: ${dateString}
         </div>
         <div class="cart-items-details-grid">
@@ -172,18 +170,15 @@ document.querySelectorAll(".js-save-link").forEach((link) => {
 
 document.querySelectorAll(`.js-delivery-option`).forEach((element) => {
   element.addEventListener("click", () => {
-    cartItem = "";
-    html = "";
     const { productId, deliveryOptionId } = element.dataset;
+
+    // Updates the deliveryId for cart and also makes respective changes in HTML
     updateDeliveryOptions(productId, deliveryOptionId);
-    console.log(productId);
-    console.log(deliveryOptionId);
 
+    // Find the cart - Can't use export in cart.js to return the selected matching item
     cartItem = cart.find((item) => item.productId === productId);
-    html = deliveryOptionsHTML(productId, cartItem);
 
-    document.querySelector(`.js-edit-delivery-option-${productId}`).innerHTML =
-      html;
+    updateDeliveryHTML(productId, cartItem);
   });
 });
 
@@ -251,4 +246,25 @@ function updateCartQuantity(productId) {
 
   document.querySelector(`.js-quantity-${productId}`).innerHTML = quantity;
   updateHeaderCartQuantity();
+}
+
+function getDeliveryDate(cartItem) {
+  const today = dayjs();
+  const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
+  const dateString = deliveryDate.format("dddd, MMMM D");
+
+  return dateString;
+}
+
+function updateDeliveryHTML(productId, cartItem) {
+  // Gets the HTML
+  const html = deliveryOptionsHTML(productId, cartItem);
+
+  // Updates the Html
+  document.querySelector(`.js-edit-delivery-option-${productId}`).innerHTML =
+    html;
+
+  // Change the title Delivery date of respective Cart
+  document.querySelector(`.js-change-delivery-date-${productId}`).innerHTML =
+    getDeliveryDate(cartItem);
 }
