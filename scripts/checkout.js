@@ -4,6 +4,7 @@ import {
   removeFromCart,
   totalCartItems,
   updateCart,
+  updateDeliveryOptions,
 } from "../data/cart.js";
 import { products } from "../data/product.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
@@ -104,7 +105,7 @@ function deliveryOptionsHTML(matchingProduct, cartItem) {
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
     html += `
-      <div class="delivery-option-buttons">
+      <div class="delivery-option-buttons js-delivery-option js-edit-delivery-option-${matchingProduct.id}" data-delivery-option-id = "${deliveryOption.id}" data-product-id= "${matchingProduct.id}">
         <input
           ${isChecked ? "checked" : ""}
           type="radio"
@@ -121,7 +122,7 @@ function deliveryOptionsHTML(matchingProduct, cartItem) {
   return html;
 }
 
-// Listens for click on delete link for all items and functions accordingly
+// Listens for click on DELETE link for all items and functions accordingly
 document.querySelectorAll(".js-delete-link").forEach((link) => {
   link.addEventListener("click", () => {
     const productId = link.dataset.productId;
@@ -129,13 +130,12 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
     document.querySelector(`.js-cart-item-container-${productId}`).remove();
 
     calculateCartQuantity();
-    updateCartQuantity(productId);
     updateTotal();
     updateHeaderCartQuantity();
   });
 });
 
-// Listens for click on update link for all items and functions accordingly
+// Listens for click on UPDATE link for all items and functions accordingly
 document.querySelectorAll(".js-update-link").forEach((link) => {
   link.addEventListener("click", () => {
     const productId = link.dataset.productId;
@@ -167,6 +167,23 @@ document.querySelectorAll(".js-save-link").forEach((link) => {
     updateTotal();
 
     updateCartQuantity(productId);
+  });
+});
+
+document.querySelectorAll(`.js-delivery-option`).forEach((element) => {
+  element.addEventListener("click", () => {
+    cartItem = "";
+    html = "";
+    const { productId, deliveryOptionId } = element.dataset;
+    updateDeliveryOptions(productId, deliveryOptionId);
+    console.log(productId);
+    console.log(deliveryOptionId);
+
+    cartItem = cart.find((item) => item.productId === productId);
+    html = deliveryOptionsHTML(productId, cartItem);
+
+    document.querySelector(`.js-edit-delivery-option-${productId}`).innerHTML =
+      html;
   });
 });
 
@@ -227,7 +244,7 @@ function updateTotal() {
   updateOrderSummary();
 }
 
-// Update cart item quantity after update number of items
+// Update cart item quantity after updating number of items
 function updateCartQuantity(productId) {
   const product = cart.find((item) => item.productId === productId);
   const quantity = product.quantity;

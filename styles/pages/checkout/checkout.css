@@ -19,6 +19,17 @@ main {
   gap: 12px;
 }
 
+/*  Trial and Error */
+/* @media (max-width: 450px) {
+  .cart-product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-items-details-grid {
+    grid-template-columns: 100px 1fr;
+  }
+} */
+
 .grid-left,
 .grid-right {
   width: 100%;
