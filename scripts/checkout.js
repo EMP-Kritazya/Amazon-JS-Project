@@ -13,7 +13,7 @@ import { deliveryOptions } from "../data/deliveryOptions.js";
 // First task is to take data from cart list and then form html divs
 
 // Variables
-let cartItemsHtml = "";
+
 let orderHtml = "";
 let cartItemId;
 let matchingProduct;
@@ -21,68 +21,73 @@ let totalItemsCost = 0;
 let shippingHandling = 0;
 let totalBeforeTax = 0;
 
-cart.forEach((cartItem) => {
-  cartItemId = cartItem.productId;
-  matchingProduct = products.find((item) => item.id === cartItemId);
+function renderItemsSummary() {
+  let cartItemsHtml = "";
 
-  if (!matchingProduct) {
-    console.error("Product not found:", items.productId);
-    return;
-  }
+  cart.forEach((cartItem) => {
+    cartItemId = cartItem.productId;
+    matchingProduct = products.find((item) => item.id === cartItemId);
 
-  const deliveryOptionId = cartItem.deliveryOptionId;
-
-  let deliveryOption;
-  deliveryOptions.forEach((option) => {
-    if (option.id === deliveryOptionId) {
-      deliveryOption = option;
+    if (!matchingProduct) {
+      console.error("Product not found:", items.productId);
+      return;
     }
-  });
 
-  dateString = getDeliveryDate(cartItem);
+    const deliveryOptionId = cartItem.deliveryOptionId;
 
-  cartItemsHtml += `
-    <div class="items-summary js-cart-item-container-${matchingProduct.id}">
-      <div class="cart-item-container">
-        <div class="delivery-date js-change-delivery-date-${matchingProduct.id}">
-          Delivery date: ${dateString}
-        </div>
-        <div class="cart-items-details-grid">
-          <div class="cart-items-left">
-            <img
-              src="${matchingProduct.image}"
-              alt=""
-              class="cart-item-image"
-            />
+    let deliveryOption;
+    deliveryOptions.forEach((option) => {
+      if (option.id === deliveryOptionId) {
+        deliveryOption = option;
+      }
+    });
+
+    const dateString = getDeliveryDate(deliveryOption.id);
+
+    cartItemsHtml += `
+      <div class="items-summary js-cart-item-container-${matchingProduct.id}">
+        <div class="cart-item-container">
+          <div class="delivery-date js-change-delivery-date-${matchingProduct.id}">
+            Delivery date: ${dateString}
           </div>
-          <div class="cart-items-middle">
-            <div class="cart-product-info">
-              <div class="cart-product-title">
-                ${matchingProduct.name}
-              </div>
-              <div class="cart-product-price">$${(matchingProduct.priceCents / 100).toFixed(2)}</div>
-              <div class="cart-product-details js-cart-details-${matchingProduct.id}">
-                <div class="quantity js-update-quantity-${matchingProduct.id}">Quantity: <span class="quantity-number js-quantity-${matchingProduct.id}">${cartItem.quantity}</span></div>
-                <a class="update js-update-link" data-product-id="${matchingProduct.id}">Update</a>
-                <input class="quantity-input js-input-quantity-${matchingProduct.id}"/>
-                <span class="save-quantity-link js-save-link" data-product-id = "${matchingProduct.id}">Save</span>
-                <a class="delete js-delete-link" data-product-id="${matchingProduct.id}">Delete</a>
+          <div class="cart-items-details-grid">
+            <div class="cart-items-left">
+              <img
+                src="${matchingProduct.image}"
+                alt=""
+                class="cart-item-image"
+              />
+            </div>
+            <div class="cart-items-middle">
+              <div class="cart-product-info">
+                <div class="cart-product-title">
+                  ${matchingProduct.name}
+                </div>
+                <div class="cart-product-price">$${(matchingProduct.priceCents / 100).toFixed(2)}</div>
+                <div class="cart-product-details js-cart-details-${matchingProduct.id}">
+                  <div class="quantity js-update-quantity-${matchingProduct.id}">Quantity: <span class="quantity-number js-quantity-${matchingProduct.id}">${cartItem.quantity}</span></div>
+                  <a class="update js-update-link" data-product-id="${matchingProduct.id}">Update</a>
+                  <input class="quantity-input js-input-quantity-${matchingProduct.id}"/>
+                  <span class="save-quantity-link js-save-link" data-product-id = "${matchingProduct.id}">Save</span>
+                  <a class="delete js-delete-link" data-product-id="${matchingProduct.id}">Delete</a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="cart-items-right">
-            <div class="delivery-method-text">
-              Choose a delivery option:
+            <div class="cart-items-right-${matchingProduct.id}">
+              <div class="delivery-method-text">
+                Choose a delivery option:
+              </div>
+              ${deliveryOptionsHTML(matchingProduct, cartItem)}
             </div>
-            ${deliveryOptionsHTML(matchingProduct, cartItem)}
           </div>
         </div>
       </div>
-    </div>
-  `;
-});
+    `;
+  });
+  document.querySelector(".js-left").innerHTML = cartItemsHtml;
+}
+renderItemsSummary();
 
-document.querySelector(".js-left").innerHTML = cartItemsHtml;
 // Updates the cart quantity in the Header of the page
 updateHeaderCartQuantity();
 // Updates total cost of all items in the cart
@@ -145,7 +150,7 @@ document.querySelectorAll(".js-update-link").forEach((link) => {
   });
 });
 
-// Listens for click on save link for all items and functions accordingly
+// Listens for click on SAVE link for all items and functions accordingly
 document.querySelectorAll(".js-save-link").forEach((link) => {
   link.addEventListener("click", () => {
     const productId = link.dataset.productId;
@@ -168,17 +173,15 @@ document.querySelectorAll(".js-save-link").forEach((link) => {
   });
 });
 
+// Listens to click on Delivery Dates
 document.querySelectorAll(`.js-delivery-option`).forEach((element) => {
   element.addEventListener("click", () => {
     const { productId, deliveryOptionId } = element.dataset;
 
-    // Updates the deliveryId for cart and also makes respective changes in HTML
+    // Updates the deliveryId for cart
     updateDeliveryOptions(productId, deliveryOptionId);
 
-    // Find the cart - Can't use export in cart.js to return the selected matching item
-    cartItem = cart.find((item) => item.productId === productId);
-
-    updateDeliveryHTML(productId, cartItem);
+    renderItemsSummary();
   });
 });
 
@@ -248,23 +251,10 @@ function updateCartQuantity(productId) {
   updateHeaderCartQuantity();
 }
 
-function getDeliveryDate(cartItem) {
+function getDeliveryDate(deliveryOptionId) {
   const today = dayjs();
-  const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
+  const deliveryDate = today.add(parseInt(deliveryOptionId), "days");
   const dateString = deliveryDate.format("dddd, MMMM D");
 
   return dateString;
-}
-
-function updateDeliveryHTML(productId, cartItem) {
-  // Gets the HTML
-  const html = deliveryOptionsHTML(productId, cartItem);
-
-  // Updates the Html
-  document.querySelector(`.js-edit-delivery-option-${productId}`).innerHTML =
-    html;
-
-  // Change the title Delivery date of respective Cart
-  document.querySelector(`.js-change-delivery-date-${productId}`).innerHTML =
-    getDeliveryDate(cartItem);
 }
