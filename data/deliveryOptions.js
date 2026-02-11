@@ -1,3 +1,5 @@
+import { cart } from "./cart.js";
+
 export const deliveryOptions = [
   {
     id: "1",
@@ -15,3 +17,16 @@ export const deliveryOptions = [
     priceCents: 999,
   },
 ];
+
+export function getDeliveryCharge() {
+  let total = 0;
+
+  cart.forEach((cartItem) => {
+    let deliveryId = cartItem.deliveryOptionId;
+    let deliveryOption = deliveryOptions.find((item) => item.id === deliveryId);
+
+    let quantity = deliveryOption.priceCents;
+    total += quantity;
+  });
+  return total;
+}

@@ -1,5 +1,3 @@
-export let totalCartItems = 0;
-
 export let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 // Adds the product to the cart
@@ -40,10 +38,11 @@ export function removeFromCart(productId) {
 }
 
 export function calculateCartQuantity() {
-  totalCartItems = 0;
+  let totalCartItems = 0;
   cart.forEach((item) => {
     totalCartItems += item.quantity;
   });
+  return totalCartItems;
 }
 
 export function updateCart(productId, quantity) {

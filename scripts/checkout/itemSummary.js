@@ -2,27 +2,23 @@ import {
   calculateCartQuantity,
   cart,
   removeFromCart,
-  totalCartItems,
   updateCart,
   updateDeliveryOptions,
 } from "../../data/cart.js";
 import { products } from "../../data/product.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import { deliveryOptions } from "../../data/deliveryOptions.js";
-import { updateOrderSummary } from "./orderSummary.js";
+import { updateTotal } from "./orderSummary.js";
+import { renderOrderSummary } from "./orderSummary.js";
 
 // First task is to take data from cart list and then form html divs
 
 // Variables
 
-let orderHtml = "";
-let cartItemId;
-let matchingProduct;
-let totalItemsCost = 0;
-let shippingHandling = 0;
-let totalBeforeTax = 0;
-
 export function renderItemsSummary() {
+  let cartItemId;
+  let matchingProduct;
+  let cartQuantity;
   let cartItemsHtml = "";
 
   cart.forEach((cartItem) => {
@@ -91,8 +87,6 @@ export function renderItemsSummary() {
   updateHeaderCartQuantity();
   // Updates total cost of all items in the cart
   updateTotal();
-  // Updates Order Summary tile
-  updateOrderSummary();
 
   function deliveryOptionsHTML(matchingProduct, cartItem) {
     let html = "";
@@ -131,9 +125,9 @@ export function renderItemsSummary() {
       removeFromCart(productId);
       document.querySelector(`.js-cart-item-container-${productId}`).remove();
 
-      calculateCartQuantity();
+      cartQuantity = calculateCartQuantity();
       updateTotal();
-      updateHeaderCartQuantity();
+      renderOrderSummary();
     });
   });
 
@@ -165,10 +159,8 @@ export function renderItemsSummary() {
         .classList.remove("is-editing-quantity", "is-not-editable");
 
       updateCart(productId, newQuantity);
-
-      updateTotal();
-
-      updateCartQuantity(productId);
+      renderOrderSummary();
+      renderItemsSummary();
     });
   });
 
@@ -180,29 +172,15 @@ export function renderItemsSummary() {
       // Updates the deliveryId for cart
       updateDeliveryOptions(productId, deliveryOptionId);
       renderItemsSummary();
+      renderOrderSummary();
     });
   });
 
   // Display total cart size in the header
   function updateHeaderCartQuantity() {
-    calculateCartQuantity();
+    cartQuantity = calculateCartQuantity();
     document.querySelector(".return-to-home-link").innerHTML =
-      `${totalCartItems} items`;
-  }
-
-  // Updates totalCost for all items
-  function updateTotal() {
-    // reset variables
-    totalItemsCost = 0;
-
-    // update variables
-    cart.forEach((cartItem) => {
-      let matchingItem = products.find(
-        (item) => item.id === cartItem.productId,
-      );
-      totalItemsCost += cartItem.quantity * matchingItem.priceCents;
-    });
-    updateOrderSummary();
+      `${cartQuantity} items`;
   }
 
   // Update cart item quantity after updating number of items
@@ -211,7 +189,6 @@ export function renderItemsSummary() {
     const quantity = product.quantity;
 
     document.querySelector(`.js-quantity-${productId}`).innerHTML = quantity;
-    updateHeaderCartQuantity();
   }
 
   function getDeliveryDate(deliveryOptionId) {
@@ -222,4 +199,3 @@ export function renderItemsSummary() {
     return dateString;
   }
 }
-renderItemsSummary();

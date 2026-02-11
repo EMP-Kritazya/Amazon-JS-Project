@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orders</title>
+
+    <link rel="stylesheet" href="styles/shared/general.css" />
+    <link rel="stylesheet" href="styles/shared/amazon-header.css" />
+    <link rel="stylesheet" href="styles/pages/amazon.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/pages/orders.css" />
+    <link rel="stylesheet" href="styles/shared/amazon-header.css" />
+    <link rel="stylesheet" href="styles/shared/general.css" />
+  </head>
+  <body>
+    <header class="header">
+      <section class="left">
+        <a href="amazon.html" class="header-link">
+          <img src="images/amazon-logo-white.png" alt="" class="amazon-logo" />
+          <img
+            src="images/amazon-mobile-logo-white.png"
+            alt=""
+            class="amazon-mobile-logo"
+          />
+        </a>
+      </section>
+      <section class="middle">
+        <input type="text" class="search-box" placeholder="Search" />
+        <button class="search-button">
+          <img src="images/search-icon.png" alt="" class="search-image" />
+        </button>
+      </section>
+      <section class="right">
+        <a href="orders.html" class="ro">
+          <span class="returns">Returns</span>
+          <span class="orders">& Orders</span>
+        </a>
+        <a href="checkout.html" class="cart">
+          <img src="images/cart-icon.png" alt="" class="cart-icon" />
+          <div class="cart-items js-number-of-items"></div>
+          <div class="cart-text">Cart</div>
+        </a>
+      </section>
+    </header>
+    <main>
+      <div class="order-title">Your Orders</div>
+      <div class="orders-grid">
+        <div class="order-summary">
+          <div class="left-section">
+            <div class="order-date">
+              <div class="order-placed-title">Order Placed:</div>
+              <div class="order-placed-date">February 11</div>
+            </div>
+            <div class="total-price">
+              <div class="total-price-title">Total:</div>
+              <div class="total-price-amount">$46.09</div>
+            </div>
+          </div>
+          <div class="right-section">
+            <div class="orderId">
+              <div class="order-Id-title">Order ID:</div>
+              <div class="orderId-value">
+                1df730b8-3d4a-fb4b-fd55-46769bca2425
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="orders-detail-grid">
+          <div class="order-item-image">
+            <img
+              src="images/products/intermediate-composite-basketball.jpg"
+              alt=""
+            />
+          </div>
+          <div class="order-item-description">
+            <div class="item-title">Intermediate Size Basketball</div>
+            <div class="item-arrival-date">Arriving on: February 20</div>
+            <div class="item-quantity">Quantity: 2</div>
+            <button class="buy-it-again">
+              <img src="images/buy-again.png" alt="" class="buy-again-img" />
+              <span class="btn-text">Buy it again</span>
+            </button>
+          </div>
+          <div class="track-package-btn">
+            <div class="track-btn">Track package</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

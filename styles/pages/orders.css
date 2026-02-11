@@ -1,0 +1,110 @@
+main {
+  margin: 90px auto 100px;
+  max-width: 890px;
+  /* max-width: 850px; */
+  height: 2000px;
+  padding: 0px 20px;
+}
+
+.order-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.order-summary {
+  display: flex;
+  height: 80px;
+  background-color: rgb(240, 242, 242);
+  border: 1px solid rgb(213, 217, 217);
+  padding: 20px 25px;
+  justify-content: space-between;
+}
+
+.left-section {
+  display: flex;
+  gap: 45px;
+}
+
+.order-date,
+.total-price,
+.orderId {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-placed-title,
+.total-price-title,
+.order-Id-title {
+  font-weight: 500;
+}
+
+.orders-detail-grid {
+  padding: 40px 25px;
+
+  border: 1px solid rgb(213, 217, 217);
+  border-top: none;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+
+  display: grid;
+  grid-template-columns: 110px 1fr 220px;
+  row-gap: 60px;
+  column-gap: 35px;
+  align-items: center;
+}
+
+.order-item-image {
+  text-align: center;
+}
+
+.item-title {
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.item-arrival-date {
+  margin-bottom: 3px;
+}
+
+.item-quantity {
+  margin-bottom: 8px;
+}
+
+.buy-it-again {
+  font-size: 15px;
+  width: 140px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255, 216, 20);
+  border: 1px solid rgb(252, 210, 0);
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+}
+
+.buy-again-img {
+  height: 25px;
+  margin-right: 15px;
+}
+
+.track-package-btn {
+  align-self: start;
+  text-align: center;
+  padding: 8px 0px;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+}
+
+.track-btn {
+  font-size: 15px;
+}
