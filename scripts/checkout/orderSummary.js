@@ -1,6 +1,7 @@
 import { calculateCartQuantity, cart } from "../../data/cart.js";
 import { products } from "../../data/product.js";
 import { getDeliveryCharge } from "../../data/deliveryOptions.js";
+import { finalizeOrders } from "../orders.js";
 
 export function renderOrderSummary() {
   // Get all Required Variables
@@ -43,6 +44,12 @@ export function renderOrderSummary() {
     </div>
   `;
   document.querySelector(".js-right").innerHTML = orderHtml;
+
+  // Helps user confirm their order and navigate to orders page
+  document.querySelector(".place-order").addEventListener("click", () => {
+    finalizeOrders();
+    window.location.href = "http://127.0.0.1:5501/orders.html";
+  });
 }
 
 // Generates totalCost for all items and Updates the page

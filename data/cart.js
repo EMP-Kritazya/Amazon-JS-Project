@@ -62,6 +62,11 @@ export function updateDeliveryOptions(productId, deliveryOptionId) {
   saveToStorage();
 }
 
+export function emptyCart() {
+  cart = [];
+  saveToStorage();
+}
+
 function saveToStorage() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
