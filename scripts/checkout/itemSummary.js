@@ -10,10 +10,7 @@ import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import { deliveryOptions } from "../../data/deliveryOptions.js";
 import { updateTotal } from "./orderSummary.js";
 import { renderOrderSummary } from "./orderSummary.js";
-
-// First task is to take data from cart list and then form html divs
-
-// Variables
+import { formatCurrency } from "../utils/money.js";
 
 export function renderItemsSummary() {
   let cartItemId;
@@ -60,7 +57,7 @@ export function renderItemsSummary() {
                 <div class="cart-product-title">
                   ${matchingProduct.name}
                 </div>
-                <div class="cart-product-price">$${(matchingProduct.priceCents / 100).toFixed(2)}</div>
+                <div class="cart-product-price">$${formatCurrency(matchingProduct.priceCents)}</div>
                 <div class="cart-product-details js-cart-details-${matchingProduct.id}">
                   <div class="quantity js-update-quantity-${matchingProduct.id}">Quantity: <span class="quantity-number js-quantity-${matchingProduct.id}">${cartItem.quantity}</span></div>
                   <a class="update js-update-link" data-product-id="${matchingProduct.id}">Update</a>

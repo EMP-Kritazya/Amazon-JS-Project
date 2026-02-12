@@ -2,6 +2,7 @@ import { calculateCartQuantity, cart } from "../../data/cart.js";
 import { products } from "../../data/product.js";
 import { getDeliveryCharge } from "../../data/deliveryOptions.js";
 import { finalizeOrders } from "../orders.js";
+import { formatCurrency } from "../utils/money.js";
 
 export function renderOrderSummary() {
   // Get all Required Variables
@@ -18,26 +19,26 @@ export function renderOrderSummary() {
         <div class="elaborate-details">
           <div class="items">
             <div class="items-title">Items (${cartQuantity}):</div>
-            <div class="item-price">$${(totalItemsCost / 100).toFixed(2)}</div>
+            <div class="item-price">$${formatCurrency(totalItemsCost)}</div>
           </div>
           <div class="shipping">
             <div class="shipping-title">Shipping & handling:</div>
-            <div class="shipping-price">$${(sHcharge / 100).toFixed(2)}</div>
+            <div class="shipping-price">$${formatCurrency(sHcharge)}</div>
           </div>
           <div class="tax-details">
             <div class="before-tax">
               <div class="total-before-tax">Total before tax:</div>
-              <div class="total-before-tax-price">$${(totalBeforeTax / 100).toFixed(2)}</div>
+              <div class="total-before-tax-price">$${formatCurrency(totalBeforeTax)}</div>
             </div>
             <div class="actual-tax">
               <div class="estimated-title">Estimated tax (10%):</div>
-              <div class="estimated-amount">$${((totalBeforeTax * 0.1) / 100).toFixed(2)}</div>
+              <div class="estimated-amount">$${formatCurrency(totalBeforeTax)}</div>
             </div>
           </div>
         </div>
         <div class="final-price">
           <div class="order-total-title">Order total:</div>
-          <div class="total-price">$${((totalBeforeTax + totalBeforeTax * 0.1) / 100).toFixed(2)}</div>
+          <div class="total-price">$${formatCurrency(totalBeforeTax + totalBeforeTax * 0.1)}</div>
         </div>
       </div>
       <button class="place-order">Place your order</button>
