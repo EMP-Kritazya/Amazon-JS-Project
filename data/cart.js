@@ -1,13 +1,16 @@
-export let cart = JSON.parse(localStorage.getItem("cart")) || [];
+export let cart;
+
+loadFromStorage();
+
+export function loadFromStorage() {
+  cart = JSON.parse(localStorage.getItem("cart")) || [];
+}
 
 // Adds the product to the cart
 // If the product already exists then it will just update it's quantity
 // If not then it will push a new product to the cart
 export function addToCart(productId) {
   let matchingItem;
-  let quantitySelected = Number(
-    document.querySelector(`.js-quantity-selector-${productId}`).value,
-  );
 
   cart.forEach((item) => {
     if (item.productId === productId) {
@@ -15,11 +18,11 @@ export function addToCart(productId) {
     }
   });
   if (matchingItem) {
-    matchingItem.quantity += quantitySelected;
+    matchingItem.quantity += 1;
   } else {
     cart.push({
       productId: productId,
-      quantity: quantitySelected,
+      quantity: 1,
       deliveryOptionId: "1",
     });
   }
