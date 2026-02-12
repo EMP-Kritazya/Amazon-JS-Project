@@ -10,7 +10,7 @@ import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import { deliveryOptions } from "../../data/deliveryOptions.js";
 import { updateTotal } from "./orderSummary.js";
 import { renderOrderSummary } from "./orderSummary.js";
-import { formatCurrency } from "../utils/money.js";
+import { formatCurrency } from "../../utils/money.js";
 
 export function renderItemsSummary() {
   let cartItemId;
@@ -39,7 +39,7 @@ export function renderItemsSummary() {
     const dateString = getDeliveryDate(deliveryOption.id);
 
     cartItemsHtml += `
-      <div class="items-summary js-cart-item-container-${matchingProduct.id}">
+      <div class="items-summary js-cart-item-container js-cart-item-container-${matchingProduct.id}">
         <div class="cart-item-container">
           <div class="delivery-date js-change-delivery-date-${matchingProduct.id}">
             Delivery date: ${dateString}
@@ -63,7 +63,7 @@ export function renderItemsSummary() {
                   <a class="update js-update-link" data-product-id="${matchingProduct.id}">Update</a>
                   <input class="quantity-input js-input-quantity-${matchingProduct.id}"/>
                   <span class="save-quantity-link js-save-link" data-product-id = "${matchingProduct.id}">Save</span>
-                  <a class="delete js-delete-link" data-product-id="${matchingProduct.id}">Delete</a>
+                  <a class="delete js-delete-link js-delete-link-${matchingProduct.id}" data-product-id="${matchingProduct.id}">Delete</a>
                 </div>
               </div>
             </div>
@@ -178,14 +178,6 @@ export function renderItemsSummary() {
     cartQuantity = calculateCartQuantity();
     document.querySelector(".return-to-home-link").innerHTML =
       `${cartQuantity} items`;
-  }
-
-  // Update cart item quantity after updating number of items
-  function updateCartQuantity(productId) {
-    const product = cart.find((item) => item.productId === productId);
-    const quantity = product.quantity;
-
-    document.querySelector(`.js-quantity-${productId}`).innerHTML = quantity;
   }
 
   function getDeliveryDate(deliveryOptionId) {

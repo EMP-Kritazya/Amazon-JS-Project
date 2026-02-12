@@ -2,7 +2,7 @@ import { calculateCartQuantity, cart } from "../../data/cart.js";
 import { products } from "../../data/product.js";
 import { getDeliveryCharge } from "../../data/deliveryOptions.js";
 import { finalizeOrders } from "../orders.js";
-import { formatCurrency } from "../utils/money.js";
+import { formatCurrency } from "../../utils/money.js";
 
 export function renderOrderSummary() {
   // Get all Required Variables

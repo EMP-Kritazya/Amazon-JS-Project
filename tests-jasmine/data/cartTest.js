@@ -1,5 +1,4 @@
 import { cart, addToCart, loadFromStorage } from "../../data/cart.js";
-import { deliveryOptions } from "../../data/deliveryOptions.js";
 
 describe("test suit: addToCart", () => {
   it("adds an existing product to the cart", () => {
@@ -27,7 +26,7 @@ describe("test suit: addToCart", () => {
     spyOn(localStorage, "getItem").and.callFake(() => {
       return JSON.stringify([]);
     });
-    console.log(localStorage.getItem("cart"));
+
     loadFromStorage();
 
     // When I add new product to the cart
