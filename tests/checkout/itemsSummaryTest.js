@@ -38,6 +38,7 @@ describe("test suite: renderItemSummary", () => {
   afterEach(() => {
     document.querySelector(".js-test-container").innerHTML = "";
   });
+
   it("displays the cart", () => {
     expect(document.querySelectorAll(".js-cart-item-container").length).toEqual(
       2,
