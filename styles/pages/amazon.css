@@ -120,8 +120,8 @@
   border: 1px solid rgb(213, 217, 217);
 }
 
-.product-spacer {
-  flex: 1;
+.chart-link {
+  color: blue;
 }
 
 .added-to-cart {

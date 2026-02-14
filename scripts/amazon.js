@@ -20,7 +20,7 @@ products.forEach((product) => {
           </div>
           <div class="number-bought">${product.rating.count}</div>
         </div>
-        <div class="product-price">$${product.getPrice()}</div>
+        <div class="product-price">${product.getPrice()}</div>
         <div class="product-quantity-container">
           <select class = "js-quantity-selector-${product.id}">
             <option selected value="1">1</option>
@@ -36,6 +36,9 @@ products.forEach((product) => {
           </select>
         </div>
       </div>
+      
+      ${product.extraInfoHTML()}
+
       <div class="added-to-cart js-added-to-cart-${product.id}">
         <img src="images/checkmark.png" alt="" />
         <div class="added-text">Added</div>
