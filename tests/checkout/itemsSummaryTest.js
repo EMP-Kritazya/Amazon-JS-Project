@@ -1,6 +1,6 @@
 import { cart, loadFromStorage } from "../../data/cart.js";
 import { renderItemsSummary } from "../../scripts/checkout/itemSummary.js";
-import { loadProducts } from "../../data/product.js";
+import { loadProductsFetch, loadProducts } from "../../data/product.js";
 
 // Hooks helps us share our code between tests
 
@@ -9,7 +9,7 @@ describe("test suite: renderItemSummary", () => {
   let product2 = "15b6fc6f-327a-4ec4-896f-486349e85a3d";
   // Before All - Hook
   beforeAll((done) => {
-    loadProducts(() => {
+    loadProductsFetch().then(() => {
       done();
     });
   });

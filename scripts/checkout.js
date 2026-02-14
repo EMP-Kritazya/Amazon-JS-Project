@@ -1,12 +1,10 @@
 import { renderItemsSummary } from "./checkout/itemSummary.js";
 import { renderOrderSummary } from "./checkout/orderSummary.js";
-import { loadProducts } from "../data/product.js";
+import { loadProducts, loadProductsFetch } from "../data/product.js";
 
 new Promise((resolve) => {
-  loadProducts(() => {
-    resolve();
+  loadProductsFetch().then(() => {
+    renderItemsSummary();
+    renderOrderSummary();
   });
-}).then(() => {
-  renderItemsSummary();
-  renderOrderSummary();
 });
