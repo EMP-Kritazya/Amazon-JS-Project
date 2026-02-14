@@ -1,12 +1,19 @@
 import { cart, loadFromStorage } from "../../data/cart.js";
 import { renderItemsSummary } from "../../scripts/checkout/itemSummary.js";
+import { loadProducts } from "../../data/product.js";
 
 // Hooks helps us share our code between tests
 
 describe("test suite: renderItemSummary", () => {
   let product1 = "e43638ce-6aa0-4b85-b27f-e1d07eb678c6";
   let product2 = "15b6fc6f-327a-4ec4-896f-486349e85a3d";
-  // Before Each hook
+  // Before All - Hook
+  beforeAll((done) => {
+    loadProducts(() => {
+      done();
+    });
+  });
+  // Before Each - Hook
   beforeEach(() => {
     spyOn(localStorage, "setItem");
     document.querySelector(".js-test-container").innerHTML = `
