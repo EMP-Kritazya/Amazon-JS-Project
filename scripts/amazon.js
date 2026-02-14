@@ -1,11 +1,14 @@
 import { addToCart, calculateCartQuantity } from "../data/cart.js";
-import { products } from "../data/product.js";
+import { products, loadProducts } from "../data/product.js";
 
-let productsHTML = "";
-let timeoutId = null;
+loadProducts(renderProductsGrid);
 
-products.forEach((product) => {
-  productsHTML += `
+function renderProductsGrid() {
+  let productsHTML = "";
+  let timeoutId = null;
+
+  products.forEach((product) => {
+    productsHTML += `
     <div class="product-area">
       <div class="product-details">
         <div class="product-image">
@@ -46,34 +49,35 @@ products.forEach((product) => {
       <button class="add-to-cart js-add-to-cart" data-product-id = "${product.id}">Add to Cart</button>
     </div>
   `;
-});
-updateCartQuantity();
-
-document.querySelector(".js-products-grid").innerHTML = productsHTML;
-
-function updateCartQuantity() {
-  const totalCartItems = calculateCartQuantity();
-  document.querySelector(".js-number-of-items").innerHTML = totalCartItems;
-}
-
-function generateAddedText(productId) {
-  const message = document.querySelector(`.js-added-to-cart-${productId}`);
-  message.classList.add("show-added-message");
-
-  clearTimeout(timeoutId);
-
-  timeoutId = setTimeout(() => {
-    message.classList.remove("show-added-message");
-  }, 2000);
-}
-
-document.querySelectorAll(".js-add-to-cart").forEach((button) => {
-  button.addEventListener("click", () => {
-    const productId = button.dataset.productId;
-
-    addToCart(productId);
-    updateCartQuantity(productId);
-    generateAddedText(productId);
-    console.log(productId);
   });
-});
+  updateCartQuantity();
+
+  document.querySelector(".js-products-grid").innerHTML = productsHTML;
+
+  function updateCartQuantity() {
+    const totalCartItems = calculateCartQuantity();
+    document.querySelector(".js-number-of-items").innerHTML = totalCartItems;
+  }
+
+  function generateAddedText(productId) {
+    const message = document.querySelector(`.js-added-to-cart-${productId}`);
+    message.classList.add("show-added-message");
+
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      message.classList.remove("show-added-message");
+    }, 2000);
+  }
+
+  document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+    button.addEventListener("click", () => {
+      const productId = button.dataset.productId;
+
+      addToCart(productId);
+      updateCartQuantity(productId);
+      generateAddedText(productId);
+      console.log(productId);
+    });
+  });
+}
