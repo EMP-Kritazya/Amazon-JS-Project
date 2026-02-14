@@ -57,7 +57,7 @@ export function renderItemsSummary() {
                 <div class="cart-product-title">
                   ${matchingProduct.name}
                 </div>
-                <div class="cart-product-price">$${formatCurrency(matchingProduct.priceCents)}</div>
+                <div class="cart-product-price">$${matchingProduct.getPrice()}</div>
                 <div class="cart-product-details js-cart-details-${matchingProduct.id}">
                   <div class="quantity js-update-quantity-${matchingProduct.id}">Quantity: <span class="quantity-number js-quantity-${matchingProduct.id}">${cartItem.quantity}</span></div>
                   <a class="update js-update-link" data-product-id="${matchingProduct.id}">Update</a>
