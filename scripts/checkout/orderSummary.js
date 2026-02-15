@@ -41,13 +41,13 @@ export function renderOrderSummary() {
           <div class="total-price">$${formatCurrency(totalBeforeTax + totalBeforeTax * 0.1)}</div>
         </div>
       </div>
-      <button class="place-order">Place your order</button>
+      <button class="place-order js-place-order">Place your order</button>
     </div>
   `;
   document.querySelector(".js-right").innerHTML = orderHtml;
 
   // Helps user confirm their order and navigate to orders page
-  document.querySelector(".place-order").addEventListener("click", () => {
+  document.querySelector(".js-place-order").addEventListener("click", () => {
     finalizeOrders();
     window.location.href = "http://127.0.0.1:5501/orders.html";
   });
