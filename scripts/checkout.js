@@ -17,5 +17,6 @@ loadPage();
 //   loadProductsFetch().then(() => {
 //     renderItemsSummary();
 //     renderOrderSummary();
+//     resolve();
 //   });
 // });
