@@ -130,6 +130,7 @@
 
   display: flex;
 
+  margin-top: auto;
   margin-bottom: 8px;
 
   opacity: 0;
