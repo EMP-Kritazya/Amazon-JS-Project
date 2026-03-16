@@ -1,4 +1,13 @@
 import { User } from "../models/user.model.js";
+import jwt from "jsonwebtoken";
+import cookie from "express";
+
+const maxAge = 3 * 24 * 60 * 60;
+const createToken = (id) => {
+  return jwt.sign({ id }, `${process.env.SECRETKEY}`, {
+    expiresIn: maxAge,
+  });
+};
 
 const registerUser = async (req, res) => {
   try {
@@ -25,11 +34,13 @@ const registerUser = async (req, res) => {
       email,
     });
 
+    const token = createToken(user._id);
+    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+
     res.status(201).json({
       message: "User Registered",
       user: {
-        username: user.username,
-        email: user.email,
+        id: user._id,
       },
     });
   } catch (error) {
